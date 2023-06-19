@@ -1,10 +1,11 @@
 use crate::deck::Deck;
-use std::{fs::{read_to_string, write}, io::{Write, self}};
+use crate::card::Card;
+use std::{fs::{read_to_string, read_dir, write}, io::{Write, self}};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Tester {
-    path: String,
+    folder_path: String,
     pub inner: Vec<Deck>,
 }
 
@@ -14,30 +15,101 @@ impl Tester {
         serde_json::to_string_pretty(&self).unwrap()
     }
 
-    pub fn new(path: &str) -> Tester {
-        match read_to_string(path) {
-            Ok(s) => match serde_json::from_str(&s) {
-                Ok(tester) => tester,
-                Err(_) =>   Tester{
-                    path: path.to_string(),
-                    inner: Vec::new()
-                }
-            },
-            
-            Err(_) =>   Tester{
-                path: path.to_string(),
-                inner: Vec::new()
+    fn get_generic(folder_path: &str) -> Tester {
+        Tester{
+            folder_path: folder_path.to_string(),
+            inner: Vec::new()
+        }
+    }
+
+    pub fn new(folder_path: &str) -> Tester {
+        let mut tester = Tester::get_generic(folder_path);
+        
+        let file_paths = match read_dir(folder_path) {
+            Ok(p) => p,
+            Err(e) => {
+                println!("err 1: {}", e);
+
+                return tester
             }
+        };
+
+        println!("{:?}\n", file_paths);
+
+        for path in file_paths {
+            match read_to_string(path.unwrap().path()) {
+                Ok(s) => tester.inner.push( match serde_json::from_str(&s) {
+                    Ok(deck) => deck,
+                    Err(e) => {
+                        println!("errs 2: {}", e);
+                        continue
+                    }
+                }),
+                Err(e) => {
+                    println!("err 3: {}", e);
+
+                    continue
+                }
+            }
+        }
+
+        tester
+            
+        
+    }
+
+    pub fn extend_deck(&mut self, deck_index: usize) {
+        if self.inner.len() == 0 {
+            println!("Deck is empty.");
+            return
+        }
+
+        let mut deck: &mut Deck = &mut self.inner[deck_index];
+
+        loop {
+            print!("Enter front of card: ");
+            io::stdout().flush().expect("Unexpected error on reading input");
+            let mut front = String::new();
+            io::stdin().read_line(&mut front).expect("Failed to read line");
+
+            print!("Enter back of card: ");
+            io::stdout().flush().expect("Unexpected error on reading input");
+            let mut back = String::new();
+            io::stdin().read_line(&mut back).expect("Failed to read line");
+
+            print!("Enter any additional: ");
+            io::stdout().flush().expect("Unexpected error on reading input");
+            let mut additional = String::new();
+            io::stdin().read_line(&mut additional).expect("Failed to read line");
+
+            deck.inner.push(Card::new(front.trim().to_string(), back.trim().to_string(), additional.trim().to_string()));
+
+            print!("Press enter to continue, type anything to exit: ");
+            io::stdout().flush().expect("Unexpected error on reading input");
+            additional = String::new();
+            io::stdin().read_line(&mut additional).expect("Failed to read line");
+
+            println!();
+
+            if additional.trim() != "" {
+                return
+            }
+
         }
     }
 
     pub fn test(&mut self, deck_index: usize) {
+        if self.inner.len() == 0 {
+            println!("No decks available.");
+            return
+        }
+
         let mut deck: &mut Deck = &mut self.inner[deck_index];
         let mut response = String::new();
 
         for card in deck.inner.iter_mut() {
             print!("Card Front: {}", card.get_front());
-            io::stdout().flush().expect("Unexpected error on reading input");
+            io::stdout().flush().expect("Unexpected error on pushing output");
             io::stdin().read_line(&mut response).expect("Failed to read line");
 
             response = String::new();
@@ -55,9 +127,11 @@ impl Tester {
     }
 
     pub fn save_progress(&self){
-        match write(self.path.clone(), self.as_json()) {
-            Ok(_) => println!("Data saved successfully."),
-            Err(e) => println!("Error in saving data: '{:?}'.", e)
+        for i in  0..self.inner.len() { 
+            match write(format!("{}/{}{}.json", self.folder_path, "deck_", i), self.inner[i].as_json()) {
+                Ok(_) => println!("Data saved successfully."),
+                Err(e) => println!("Error in saving data: '{:?}'.", e)
+            }
         }
     }
 

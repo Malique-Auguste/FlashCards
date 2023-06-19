@@ -45,7 +45,7 @@ impl Difficulty {
 pub struct Card {
     front: String,
     back: String,
-    topic: String,
+    additional: String,
     last_tested: SystemTime,
     difficulty: Difficulty,
 }
@@ -61,7 +61,7 @@ impl Card {
         Card {
             front,
             back,
-            topic,
+            additional: topic,
             last_tested: SystemTime::now(),
             difficulty: Difficulty::Average,
         }
@@ -95,12 +95,12 @@ impl std::fmt::Display for Card {
 impl std::fmt::Debug for Card {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         if f.alternate() {
-            return write!(f, "Front: {}\nBack: {:?}\nTopic: {}\nLast Tested: {:?}\nDifficulty: {:?}", self.front, self.back, self.topic, self.last_tested, self.difficulty);
+            return write!(f, "Front: {}\nBack: {:?}\nAdditional: {}\nLast Tested: {:?}\nDifficulty: {:?}", self.front, self.back, self.additional, self.last_tested, self.difficulty);
         } else {
             return write!(
                 f,
-                "Front: {}, Back: {}, Topic: {}",
-                self.front, self.back, self.topic
+                "Front: {}, Back: {}, Additional: {}",
+                self.front, self.back, self.additional
             );
         }
     }

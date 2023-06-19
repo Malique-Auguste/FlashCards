@@ -1,0 +1,25 @@
+{
+  "name": "1st 100",
+  "inner": [
+    {
+      "front": "Hola",
+      "back": "Hello",
+      "additional": "",
+      "last_tested": {
+        "secs_since_epoch": 1687200335,
+        "nanos_since_epoch": 98012500
+      },
+      "difficulty": "VeryEasy"
+    },
+    {
+      "front": "Adios",
+      "back": "Goodbye",
+      "additional": "Interjection",
+      "last_tested": {
+        "secs_since_epoch": 1687200364,
+        "nanos_since_epoch": 888307300
+      },
+      "difficulty": "Average"
+    }
+  ]
+}
