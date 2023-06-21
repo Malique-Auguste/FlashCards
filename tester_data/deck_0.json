@@ -6,8 +6,8 @@
       "back": "Hello",
       "additional": "",
       "last_tested": {
-        "secs_since_epoch": 1687200335,
-        "nanos_since_epoch": 98012500
+        "secs_since_epoch": 1687384154,
+        "nanos_since_epoch": 211570200
       },
       "difficulty": "VeryEasy"
     },
@@ -16,10 +16,10 @@
       "back": "Goodbye",
       "additional": "Interjection",
       "last_tested": {
-        "secs_since_epoch": 1687200364,
-        "nanos_since_epoch": 888307300
+        "secs_since_epoch": 1687384160,
+        "nanos_since_epoch": 872005900
       },
-      "difficulty": "Average"
+      "difficulty": "VeryEasy"
     }
   ]
 }

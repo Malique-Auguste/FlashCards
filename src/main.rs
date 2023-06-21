@@ -6,6 +6,7 @@ use tester::Tester;
 use deck::Deck;
 use std::io;
 use std::io::Write;
+use colored::Colorize;
 
 
 fn main() {
@@ -20,11 +21,17 @@ fn main() {
 
     loop {
         
+        let mut colored_text = "List of Decks:".blue();
+        print!("{}", colored_text);
 
-        print!("\nList of Decks:\n{}\nWhich deck would you like to use?: ", deck_names);
+        colored_text = deck_names.green();
+        print!("\n{}", colored_text);
+        print!("\nWhich deck would you like to use?: ");
         io::stdout().flush().expect("Unexpected error on pushing output");
         let mut deck_name = String::new();
         io::stdin().read_line(&mut deck_name).expect("Failed to read line");
+
+        print!("\x1B[2J\x1B[1;1H");
 
         let deck_index = match tester.inner.iter().position(|deck| deck.name == deck_name.trim()) {
             Some(i) => i,
@@ -37,7 +44,9 @@ fn main() {
         print!("Would you like to do a test(t) or extend the deck(e)?: ");
         io::stdout().flush().expect("Unexpected error on pushing output");
         let mut activity = String::new();
-        io::stdin().read_line(&mut activity).expect("Failed to read line");      
+        io::stdin().read_line(&mut activity).expect("Failed to read line");    
+
+        print!("\x1B[2J\x1B[1;1H");  
 
         match activity.trim() {
             "t" => tester.test(deck_index),

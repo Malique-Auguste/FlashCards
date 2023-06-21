@@ -122,6 +122,8 @@ impl Tester {
                 "c" => card.decrease_difficulty(),
                 _ => panic!("Expected 'c' or 'w', got: '{:#?}'", response),
             }
+
+            print!("\x1B[2J\x1B[1;1H");
         }
 
     }
