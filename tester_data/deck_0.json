@@ -1,25 +1,72 @@
 {
   "name": "1st 100",
-  "inner": [
-    {
-      "front": "Hola",
-      "back": "Hello",
-      "additional": "",
-      "last_tested": {
-        "secs_since_epoch": 1687384154,
-        "nanos_since_epoch": 211570200
-      },
-      "difficulty": "VeryEasy"
-    },
+  "very_easy_cards": [],
+  "easy_cards": [],
+  "average_cards": [
     {
       "front": "Adios",
       "back": "Goodbye",
       "additional": "Interjection",
       "last_tested": {
-        "secs_since_epoch": 1687384160,
-        "nanos_since_epoch": 872005900
-      },
-      "difficulty": "VeryEasy"
+        "secs_since_epoch": 1687622294,
+        "nanos_since_epoch": 106383400
+      }
+    },
+    {
+      "front": "Family",
+      "back": "la familia",
+      "additional": "noun",
+      "last_tested": {
+        "secs_since_epoch": 1687628834,
+        "nanos_since_epoch": 257847200
+      }
+    },
+    {
+      "front": "Brother",
+      "back": "El Hermano",
+      "additional": "noun",
+      "last_tested": {
+        "secs_since_epoch": 1687628856,
+        "nanos_since_epoch": 411443000
+      }
+    },
+    {
+      "front": "sister",
+      "back": "el hermana",
+      "additional": "noun",
+      "last_tested": {
+        "secs_since_epoch": 1687628866,
+        "nanos_since_epoch": 30464200
+      }
+    },
+    {
+      "front": "mother",
+      "back": "la madre",
+      "additional": "noun",
+      "last_tested": {
+        "secs_since_epoch": 1687628888,
+        "nanos_since_epoch": 517810500
+      }
+    },
+    {
+      "front": "father",
+      "back": "el padre",
+      "additional": "noun",
+      "last_tested": {
+        "secs_since_epoch": 1687628939,
+        "nanos_since_epoch": 947354100
+      }
+    },
+    {
+      "front": "girlfriend",
+      "back": "la novia",
+      "additional": "noun",
+      "last_tested": {
+        "secs_since_epoch": 1687628986,
+        "nanos_since_epoch": 120295600
+      }
     }
-  ]
+  ],
+  "hard_cards": [],
+  "very_hard_cards": []
 }

@@ -1,11 +1,15 @@
 mod card;
 mod deck;
 mod tester;
+mod difficulty;
 
 use tester::Tester;
 use deck::Deck;
+use difficulty::Difficulty;
+
 use std::io;
 use std::io::Write;
+use std::ops::Add;
 use colored::Colorize;
 
 
@@ -14,9 +18,9 @@ fn main() {
     let mut tester: Tester = Tester::new("tester_data");
     let mut deck_names = String::new();
 
-    for deck in tester.inner.iter() {
-        deck_names.push_str(&deck.name);
-        deck_names.push('\n');
+    for i in 0..tester.inner.len() {
+        let line = format!("{}) {}\n", i + 1, tester.inner[i].name);
+        deck_names.push_str(line.as_str())
     }
 
     loop {
@@ -26,20 +30,28 @@ fn main() {
 
         colored_text = deck_names.green();
         print!("\n{}", colored_text);
-        print!("\nWhich deck would you like to use?: ");
+        print!("\nWhich deck would you like to use? (enter number): ");
         io::stdout().flush().expect("Unexpected error on pushing output");
-        let mut deck_name = String::new();
-        io::stdin().read_line(&mut deck_name).expect("Failed to read line");
-
-        print!("\x1B[2J\x1B[1;1H");
-
-        let deck_index = match tester.inner.iter().position(|deck| deck.name == deck_name.trim()) {
-            Some(i) => i,
-            None => {
-                println!("'{}' is nto a possible deck.\n", deck_name);
+        let mut deck_index = String::new();
+        io::stdin().read_line(&mut deck_index).expect("Failed to read line");
+        
+        let deck_index = match deck_index.trim().parse::<usize>() {
+            Ok(i) => {
+                if i - 1 < tester.inner.len() {
+                    i - 1
+                }
+                else {
+                    println!("Given index '{}' is out of range.", deck_index);
+                    continue;
+                }
+            },
+            Err(e) => {
+                println!("Err in reding deck '{}': '{}'", deck_index, e);
                 continue;
             }
         };
+
+        print!("\x1B[2J\x1B[1;1H");      
 
         print!("Would you like to do a test(t) or extend the deck(e)?: ");
         io::stdout().flush().expect("Unexpected error on pushing output");
@@ -49,7 +61,7 @@ fn main() {
         print!("\x1B[2J\x1B[1;1H");  
 
         match activity.trim() {
-            "t" => tester.test(deck_index),
+            "t" => tester.test(deck_index, Difficulty::VeryEasy, true),
             "e" => tester.extend_deck(deck_index),
             _ => {
                 println!("'{}' doesn't correspond to a given actvity.\n", activity);
@@ -57,7 +69,9 @@ fn main() {
             },
         }
 
-        tester.save_progress()
+        tester.save_progress();
+
+        break;
     }
 
 }

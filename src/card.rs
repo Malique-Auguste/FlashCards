@@ -1,53 +1,16 @@
 use serde::{Deserialize, Serialize};
 use std::time::SystemTime;
+use crate::difficulty::Difficulty;
 
 
-#[derive(Debug, Copy, Clone, Serialize, Deserialize, PartialEq)]
-pub enum Difficulty {
-    VeryEasy,
-    Easy,
-    Average,
-    Hard,
-    VeryHard,
-}
-
-impl Difficulty {
-    fn as_num(&self) -> u8 {
-        match self {
-            Difficulty::VeryEasy => 1,
-            Difficulty::Easy => 2,
-            Difficulty::Average => 3,
-            Difficulty::Hard => 4,
-            Difficulty::VeryHard => 5,
-        }
-    }
-
-    fn change(&mut self, increase: bool) {
-        let mut num = self.as_num();
-
-        match increase {
-            true => num += 1,
-            false => num -= 1
-        }
-
-        *self = match num {
-            0 => Difficulty::VeryEasy,
-            1 => Difficulty::VeryEasy,
-            2 => Difficulty::Easy,
-            3 => Difficulty::Average,
-            4 => Difficulty::Hard,
-            _ => Difficulty::VeryHard
-        }
-    }
-}
-
+//Datatype representing a flashcard
 #[derive(Clone, Serialize, Deserialize)]
 pub struct Card {
     front: String,
     back: String,
+    //For example in language learning this can be used to represent parts of speech
     additional: String,
     last_tested: SystemTime,
-    difficulty: Difficulty,
 }
 
 impl Card {
@@ -63,7 +26,6 @@ impl Card {
             back,
             additional: topic,
             last_tested: SystemTime::now(),
-            difficulty: Difficulty::Average,
         }
     }
 
@@ -73,16 +35,6 @@ impl Card {
 
     pub fn get_back(&self) -> &str {
         &self.back
-    }
-
-    pub fn increase_difficulty(&mut self) {
-        self.difficulty.change(true);
-        self.last_tested = SystemTime::now();
-    }
-
-    pub fn decrease_difficulty(&mut self) {
-        self.difficulty.change(false);
-        self.last_tested = SystemTime::now();
     }
 }
 
@@ -95,7 +47,7 @@ impl std::fmt::Display for Card {
 impl std::fmt::Debug for Card {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         if f.alternate() {
-            return write!(f, "Front: {}\nBack: {:?}\nAdditional: {}\nLast Tested: {:?}\nDifficulty: {:?}", self.front, self.back, self.additional, self.last_tested, self.difficulty);
+            return write!(f, "Front: {}\nBack: {:?}\nAdditional: {}\nLast Tested: {:?}", self.front, self.back, self.additional, self.last_tested);
         } else {
             return write!(
                 f,
