@@ -10,13 +10,23 @@ pub enum Difficulty {
 }
 
 impl Difficulty {
-    fn as_num(&self) -> u8 {
+    pub fn as_num(&self) -> u8 {
         match self {
             Difficulty::VeryEasy => 1,
             Difficulty::Easy => 2,
             Difficulty::Average => 3,
             Difficulty::Hard => 4,
             Difficulty::VeryHard => 5,
+        }
+    }
+
+    pub fn from_num(num: usize) -> Difficulty {
+        match num {
+            0 | 1 => Difficulty::VeryEasy,
+            2 => Difficulty::Easy,
+            3 => Difficulty::Average,
+            4 => Difficulty::Hard,
+            _ => Difficulty::VeryHard
         }
     }
 

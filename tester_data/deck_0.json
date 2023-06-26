@@ -1,15 +1,31 @@
 {
   "name": "1st 100",
-  "very_easy_cards": [],
-  "easy_cards": [],
-  "average_cards": [
+  "very_easy_cards": [
     {
-      "front": "Adios",
-      "back": "Goodbye",
-      "additional": "Interjection",
+      "front": "father",
+      "back": "el padre",
+      "additional": "noun",
       "last_tested": {
-        "secs_since_epoch": 1687622294,
-        "nanos_since_epoch": 106383400
+        "secs_since_epoch": 1687628939,
+        "nanos_since_epoch": 947354100
+      }
+    },
+    {
+      "front": "the book",
+      "back": "el libro",
+      "additional": "noun",
+      "last_tested": {
+        "secs_since_epoch": 1687641057,
+        "nanos_since_epoch": 129936100
+      }
+    },
+    {
+      "front": "the breakfast",
+      "back": "el desayuno",
+      "additional": "noun",
+      "last_tested": {
+        "secs_since_epoch": 1687641094,
+        "nanos_since_epoch": 987573100
       }
     },
     {
@@ -22,39 +38,12 @@
       }
     },
     {
-      "front": "Brother",
-      "back": "El Hermano",
-      "additional": "noun",
-      "last_tested": {
-        "secs_since_epoch": 1687628856,
-        "nanos_since_epoch": 411443000
-      }
-    },
-    {
       "front": "sister",
       "back": "el hermana",
       "additional": "noun",
       "last_tested": {
         "secs_since_epoch": 1687628866,
         "nanos_since_epoch": 30464200
-      }
-    },
-    {
-      "front": "mother",
-      "back": "la madre",
-      "additional": "noun",
-      "last_tested": {
-        "secs_since_epoch": 1687628888,
-        "nanos_since_epoch": 517810500
-      }
-    },
-    {
-      "front": "father",
-      "back": "el padre",
-      "additional": "noun",
-      "last_tested": {
-        "secs_since_epoch": 1687628939,
-        "nanos_since_epoch": 947354100
       }
     },
     {
@@ -65,8 +54,427 @@
         "secs_since_epoch": 1687628986,
         "nanos_since_epoch": 120295600
       }
+    },
+    {
+      "front": "the time",
+      "back": "el tiempo",
+      "additional": "noun",
+      "last_tested": {
+        "secs_since_epoch": 1687641205,
+        "nanos_since_epoch": 248144100
+      }
+    },
+    {
+      "front": "They",
+      "back": "Ellos/Ellas",
+      "additional": "pronoun",
+      "last_tested": {
+        "secs_since_epoch": 1687641324,
+        "nanos_since_epoch": 348573500
+      }
+    },
+    {
+      "front": "She",
+      "back": "Ella",
+      "additional": "pronoun",
+      "last_tested": {
+        "secs_since_epoch": 1687641348,
+        "nanos_since_epoch": 863454300
+      }
+    },
+    {
+      "front": "Adios",
+      "back": "Goodbye",
+      "additional": "Interjection",
+      "last_tested": {
+        "secs_since_epoch": 1687622294,
+        "nanos_since_epoch": 106383400
+      }
     }
   ],
-  "hard_cards": [],
+  "easy_cards": [
+    {
+      "front": "the place",
+      "back": "el lugar",
+      "additional": "noun",
+      "last_tested": {
+        "secs_since_epoch": 1687641185,
+        "nanos_since_epoch": 427481300
+      }
+    },
+    {
+      "front": "the Volleyball",
+      "back": "el vóleibol",
+      "additional": "noun",
+      "last_tested": {
+        "secs_since_epoch": 1687641000,
+        "nanos_since_epoch": 791427000
+      }
+    },
+    {
+      "front": "the basketball",
+      "back": "el baloncesto",
+      "additional": "noun",
+      "last_tested": {
+        "secs_since_epoch": 1687640955,
+        "nanos_since_epoch": 829160600
+      }
+    },
+    {
+      "front": "the football",
+      "back": "el fútbol",
+      "additional": "noun",
+      "last_tested": {
+        "secs_since_epoch": 1687640977,
+        "nanos_since_epoch": 639539300
+      }
+    },
+    {
+      "front": "mother",
+      "back": "la madre",
+      "additional": "noun",
+      "last_tested": {
+        "secs_since_epoch": 1687628888,
+        "nanos_since_epoch": 517810500
+      }
+    }
+  ],
+  "average_cards": [
+    {
+      "front": "the night",
+      "back": "la noche",
+      "additional": "noun",
+      "last_tested": {
+        "secs_since_epoch": 1687641229,
+        "nanos_since_epoch": 285093000
+      }
+    },
+    {
+      "front": "computer",
+      "back": "la computadora",
+      "additional": "noun",
+      "last_tested": {
+        "secs_since_epoch": 1687640866,
+        "nanos_since_epoch": 195503800
+      }
+    },
+    {
+      "front": "Brother",
+      "back": "El Hermano",
+      "additional": "noun",
+      "last_tested": {
+        "secs_since_epoch": 1687628856,
+        "nanos_since_epoch": 411443000
+      }
+    },
+    {
+      "front": "I",
+      "back": "I",
+      "additional": "pronoun",
+      "last_tested": {
+        "secs_since_epoch": 1687641272,
+        "nanos_since_epoch": 988364800
+      }
+    },
+    {
+      "front": "We",
+      "back": "Nosotros/Nosotras",
+      "additional": "pronoun",
+      "last_tested": {
+        "secs_since_epoch": 1687641310,
+        "nanos_since_epoch": 572471800
+      }
+    },
+    {
+      "front": "the pencil",
+      "back": "el lápiz",
+      "additional": "noun",
+      "last_tested": {
+        "secs_since_epoch": 1687641075,
+        "nanos_since_epoch": 721828500
+      }
+    },
+    {
+      "front": "He",
+      "back": "Él",
+      "additional": "pronoun",
+      "last_tested": {
+        "secs_since_epoch": 1687641337,
+        "nanos_since_epoch": 512020600
+      }
+    },
+    {
+      "front": "the day",
+      "back": "el dia",
+      "additional": "noun",
+      "last_tested": {
+        "secs_since_epoch": 1687641254,
+        "nanos_since_epoch": 398006100
+      }
+    },
+    {
+      "front": "You",
+      "back": "Tú",
+      "additional": "pronoun",
+      "last_tested": {
+        "secs_since_epoch": 1687641289,
+        "nanos_since_epoch": 671766100
+      }
+    },
+    {
+      "front": "It",
+      "back": "Él",
+      "additional": "pronoun",
+      "last_tested": {
+        "secs_since_epoch": 1687641363,
+        "nanos_since_epoch": 882398800
+      }
+    },
+    {
+      "front": "the lunch",
+      "back": "el almuerzo",
+      "additional": "noun",
+      "last_tested": {
+        "secs_since_epoch": 1687641119,
+        "nanos_since_epoch": 119722300
+      }
+    },
+    {
+      "front": "to be",
+      "back": "ser/estar",
+      "additional": "verb",
+      "last_tested": {
+        "secs_since_epoch": 1687792927,
+        "nanos_since_epoch": 315206000
+      }
+    },
+    {
+      "front": "to have",
+      "back": "tener",
+      "additional": "verb",
+      "last_tested": {
+        "secs_since_epoch": 1687792938,
+        "nanos_since_epoch": 744192100
+      }
+    },
+    {
+      "front": "to do",
+      "back": "hacer",
+      "additional": "verb",
+      "last_tested": {
+        "secs_since_epoch": 1687792952,
+        "nanos_since_epoch": 881856500
+      }
+    },
+    {
+      "front": "to say",
+      "back": "decir",
+      "additional": "verb",
+      "last_tested": {
+        "secs_since_epoch": 1687792971,
+        "nanos_since_epoch": 756639600
+      }
+    },
+    {
+      "front": "to go",
+      "back": "ir",
+      "additional": "vebr",
+      "last_tested": {
+        "secs_since_epoch": 1687792984,
+        "nanos_since_epoch": 488722900
+      }
+    },
+    {
+      "front": "to make",
+      "back": "hacer",
+      "additional": "verb",
+      "last_tested": {
+        "secs_since_epoch": 1687793036,
+        "nanos_since_epoch": 127593000
+      }
+    },
+    {
+      "front": "to see",
+      "back": "ver",
+      "additional": "verb",
+      "last_tested": {
+        "secs_since_epoch": 1687793052,
+        "nanos_since_epoch": 165020900
+      }
+    },
+    {
+      "front": "to study",
+      "back": "para estudiar",
+      "additional": "verb",
+      "last_tested": {
+        "secs_since_epoch": 1687793070,
+        "nanos_since_epoch": 34988200
+      }
+    },
+    {
+      "front": "to know",
+      "back": "saber",
+      "additional": "verb",
+      "last_tested": {
+        "secs_since_epoch": 1687793096,
+        "nanos_since_epoch": 304504200
+      }
+    },
+    {
+      "front": "to look",
+      "back": "mirar",
+      "additional": "verb",
+      "last_tested": {
+        "secs_since_epoch": 1687793116,
+        "nanos_since_epoch": 310982700
+      }
+    },
+    {
+      "front": "to work",
+      "back": "trabajar",
+      "additional": "verb",
+      "last_tested": {
+        "secs_since_epoch": 1687793128,
+        "nanos_since_epoch": 49766100
+      }
+    },
+    {
+      "front": "to sleep",
+      "back": "dormir",
+      "additional": "verb",
+      "last_tested": {
+        "secs_since_epoch": 1687793140,
+        "nanos_since_epoch": 841530100
+      }
+    },
+    {
+      "front": "to become",
+      "back": "convertirse",
+      "additional": "verb",
+      "last_tested": {
+        "secs_since_epoch": 1687793156,
+        "nanos_since_epoch": 395993700
+      }
+    },
+    {
+      "front": "to understand",
+      "back": "comprender",
+      "additional": "verb",
+      "last_tested": {
+        "secs_since_epoch": 1687793173,
+        "nanos_since_epoch": 511906200
+      }
+    },
+    {
+      "front": "to feel",
+      "back": "sentir",
+      "additional": "verb",
+      "last_tested": {
+        "secs_since_epoch": 1687793187,
+        "nanos_since_epoch": 988774200
+      }
+    },
+    {
+      "front": "to allow",
+      "back": "permitir",
+      "additional": "verb",
+      "last_tested": {
+        "secs_since_epoch": 1687793227,
+        "nanos_since_epoch": 645674300
+      }
+    },
+    {
+      "front": "to watch",
+      "back": "ver",
+      "additional": "verb",
+      "last_tested": {
+        "secs_since_epoch": 1687793260,
+        "nanos_since_epoch": 560326600
+      }
+    },
+    {
+      "front": "to think",
+      "back": "pensar",
+      "additional": "verb",
+      "last_tested": {
+        "secs_since_epoch": 1687793272,
+        "nanos_since_epoch": 554234500
+      }
+    },
+    {
+      "front": "to create",
+      "back": "crear",
+      "additional": "verb",
+      "last_tested": {
+        "secs_since_epoch": 1687793286,
+        "nanos_since_epoch": 756990500
+      }
+    },
+    {
+      "front": "to use",
+      "back": "usar",
+      "additional": "verb",
+      "last_tested": {
+        "secs_since_epoch": 1687793298,
+        "nanos_since_epoch": 232039100
+      }
+    },
+    {
+      "front": "to write",
+      "back": "escribir",
+      "additional": "verb",
+      "last_tested": {
+        "secs_since_epoch": 1687793309,
+        "nanos_since_epoch": 531773200
+      }
+    },
+    {
+      "front": "to read",
+      "back": "leer",
+      "additional": "verb",
+      "last_tested": {
+        "secs_since_epoch": 1687793320,
+        "nanos_since_epoch": 657773600
+      }
+    },
+    {
+      "front": "to eat",
+      "back": "comer",
+      "additional": "verb",
+      "last_tested": {
+        "secs_since_epoch": 1687793329,
+        "nanos_since_epoch": 607105600
+      }
+    },
+    {
+      "front": "the dog",
+      "back": "el perro",
+      "additional": "noun",
+      "last_tested": {
+        "secs_since_epoch": 1687641161,
+        "nanos_since_epoch": 393276800
+      }
+    },
+    {
+      "front": "phone",
+      "back": "el teléfono",
+      "additional": "noun",
+      "last_tested": {
+        "secs_since_epoch": 1687640883,
+        "nanos_since_epoch": 474892400
+      }
+    }
+  ],
+  "hard_cards": [
+    {
+      "front": "the dinner",
+      "back": "la cena",
+      "additional": "noun",
+      "last_tested": {
+        "secs_since_epoch": 1687641140,
+        "nanos_since_epoch": 808812900
+      }
+    }
+  ],
   "very_hard_cards": []
 }

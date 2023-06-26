@@ -4,31 +4,13 @@ use crate::card::Card;
 use std::{fs::{read_to_string, read_dir, write}, io::{Write, self}};
 use serde::{Deserialize, Serialize};
 
-use rand::prelude::*;
-
-pub fn shuffle<I>(to_shuffle: &mut Vec<I>) {
-    let mut rng = rand::thread_rng();
-    let length = to_shuffle.len();
-    let mut current_pos = 0;
-
-    while current_pos < to_shuffle.len() {
-        let temp_pos = rng.gen_range(0..length - 1);
-
-        let current = to_shuffle.remove(current_pos);
-        let temp = to_shuffle.remove(temp_pos);
-
-        to_shuffle.insert(temp_pos, current);
-        to_shuffle.insert(current_pos, temp);
-
-        current_pos += 2;
-    }
-}
 
 //Represents the DataType that "manages" the program. It sores all the deck of cards and is used to test the user
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Tester {
     folder_path: String,
     pub inner: Vec<Deck>,
+    buffer: Vec<(Card, Difficulty)>
 }
 
 
@@ -41,7 +23,8 @@ impl Tester {
     fn get_generic(folder_path: &str) -> Tester {
         Tester{
             folder_path: folder_path.to_string(),
-            inner: Vec::new()
+            inner: Vec::new(),
+            buffer: Vec::new()
         }
     }
 
@@ -89,9 +72,9 @@ impl Tester {
             return
         }
 
-        let mut deck: &mut Deck = &mut self.inner[deck_index];
-
+        let mut cards_added = 0;
         loop {
+            let mut deck: &mut Deck = &mut self.inner[deck_index];
             print!("Enter front of card: ");
             io::stdout().flush().expect("Unexpected error on reading input");
             let mut front = String::new();
@@ -114,7 +97,10 @@ impl Tester {
             additional = String::new();
             io::stdin().read_line(&mut additional).expect("Failed to read line");
 
-            println!();
+            cards_added += 1;
+            if cards_added % 5 == 0 {
+                &(*self).save_progress();
+            }
 
             if additional.trim() != "" {
                 return
@@ -136,114 +122,159 @@ impl Tester {
         let mut cards_to_test: &mut Vec<Card> = &mut Vec::new();
         let mut cards_to_test_length: usize;
         let mut changes = Vec::new();
+        let mut cards_present = false;
 
         if short {
             match difficulty {
-                Difficulty::VeryEasy => {
-                    cards_to_test = deck.get_inner_mut(difficulty);
+                Difficulty::VeryEasy | Difficulty::VeryHard => println!("Error: VeryEasy and VeryHard tests aren't possible."),
+
+                Difficulty::Easy => {
+                    cards_to_test = deck.get_inner_mut(difficulty, true);
                     cards_to_test_length = cards_to_test.len();
 
-                    if cards_to_test_length <= 10 {
-                        changes = Tester::test_cards(&mut cards_to_test[0..cards_to_test_length]);
+                    if cards_to_test_length != 0 { 
+                        cards_present = true;
+                        if cards_to_test_length <= 8 {
+                            changes = Tester::test_cards(&mut cards_to_test[0..cards_to_test_length]);
+                        }
+                        else {
+                            changes = Tester::test_cards(&mut cards_to_test[0..8]);
+                        }   
+
+                        Tester::change_difficulty(deck, difficulty, changes);
                     }
-                    else {
-                        changes = Tester::test_cards(&mut cards_to_test[0..10]);
-                    }
 
-
-                    Tester::change_difficulty(deck, difficulty, changes);
-
-                    difficulty.change(true);
-                    
-                    cards_to_test = deck.get_inner_mut(difficulty);
+                    difficulty.change(false);
+                    cards_to_test = deck.get_inner_mut(difficulty, true);
                     cards_to_test_length = cards_to_test.len();
-                    if cards_to_test_length <= 5 {
-                        changes = Tester::test_cards(&mut cards_to_test[0..cards_to_test_length]);
-                    }
-                    else {
-                        changes = Tester::test_cards(&mut cards_to_test[0..5]);
+
+                    if cards_to_test_length != 0 { 
+                        cards_present = true;
+                        if cards_to_test_length <= 7 {
+                            changes = Tester::test_cards(&mut cards_to_test[0..cards_to_test_length]);
+                        }
+                        else {
+                            changes = Tester::test_cards(&mut cards_to_test[0..7]);
+                        }
+                        
+                        Tester::change_difficulty(deck, difficulty, changes);
                     }
 
-                    Tester::change_difficulty(deck, difficulty, changes);
-
+                    if cards_present == false {
+                        println!("No cards are available for the given test in this deck.")
+                    }
                 }
 
-                Difficulty::Easy | Difficulty::Average | Difficulty::Hard => {
-                    cards_to_test = deck.get_inner_mut(difficulty);
+                Difficulty::Average => {
+                    cards_to_test = deck.get_inner_mut(difficulty, true);
                     cards_to_test_length = cards_to_test.len();
-                    if cards_to_test_length <= 10 {
-                        changes = Tester::test_cards(&mut cards_to_test[0..cards_to_test_length]);
-                    }
-                    else {
-                        changes= Tester::test_cards(&mut cards_to_test[0..10]);
+
+                    if cards_to_test_length != 0 { 
+                        cards_present = true;
+                        if cards_to_test_length <= 7 {
+                            changes = Tester::test_cards(&mut cards_to_test[0..cards_to_test_length]);
+                        }
+                        else {
+                            changes = Tester::test_cards(&mut cards_to_test[0..7]);
+                        }
+                        Tester::change_difficulty(deck, difficulty, changes);
                     }
 
                     difficulty.change(true);
-                    cards_to_test = deck.get_inner_mut(difficulty);
+                    cards_to_test = deck.get_inner_mut(difficulty, true);
                     cards_to_test_length = cards_to_test.len();
-                    if cards_to_test_length <= 5 {
-                        changes = Tester::test_cards(&mut cards_to_test[0..cards_to_test_length]);
-                    }
-                    else {
-                        changes = Tester::test_cards(&mut cards_to_test[0..5]);
-                    }
 
-                    Tester::change_difficulty(deck, difficulty, changes);
+                    if cards_to_test_length != 0 {
+                        cards_present = true;
+                        if cards_to_test_length <= 4 {
+                            changes = Tester::test_cards(&mut cards_to_test[0..cards_to_test_length]);
+                        }
+                        else {
+                            changes = Tester::test_cards(&mut cards_to_test[0..4]);
+                        }
+
+                        Tester::change_difficulty(deck, difficulty, changes);
+                    }
 
 
                     difficulty.change(false);
                     difficulty.change(false);
-                    cards_to_test = deck.get_inner_mut(difficulty);
+                    cards_to_test = deck.get_inner_mut(difficulty, true);
                     cards_to_test_length = cards_to_test.len();
-                    if cards_to_test_length <= 5 {
-                        changes = Tester::test_cards(&mut cards_to_test[0..cards_to_test_length]);
-                    }
-                    else {
-                        changes = Tester::test_cards(&mut cards_to_test[0..5]);
+
+                    if cards_to_test_length != 0 {
+                        cards_present = true;
+                        if cards_to_test_length <= 4 {
+                            changes = Tester::test_cards(&mut cards_to_test[0..cards_to_test_length]);
+                        }
+                        else {
+                            changes = Tester::test_cards(&mut cards_to_test[0..4]);
+                        }
+
+                        Tester::change_difficulty(deck, difficulty, changes);
                     }
 
-                    Tester::change_difficulty(deck, difficulty, changes);
-
+                    if cards_present == false {
+                        println!("No cards are available for the given test in this deck.")
+                    }
                 }
 
-                Difficulty::VeryHard => {
-                    cards_to_test = deck.get_inner_mut(difficulty);
+                Difficulty::Hard => {
+                    cards_to_test = deck.get_inner_mut(difficulty, true);
                     cards_to_test_length = cards_to_test.len();
-                    if cards_to_test_length <= 10 {
-                        changes = Tester::test_cards(&mut cards_to_test[0..cards_to_test_length]);
-                    }
-                    else {
-                        changes= Tester::test_cards(&mut cards_to_test[0..10]);
+
+                    if cards_to_test_length != 0 {
+                        cards_present = true;
+                        if cards_to_test_length <= 8 {
+                            changes = Tester::test_cards(&mut cards_to_test[0..cards_to_test_length]);
+                        }
+                        else {
+                            changes= Tester::test_cards(&mut cards_to_test[0..8]);
+                        }
+
+                        Tester::change_difficulty(deck, difficulty, changes);
                     }
 
-                    difficulty.change(false);
-                    cards_to_test = deck.get_inner_mut(difficulty);
+                    difficulty.change(true);
+                    cards_to_test = deck.get_inner_mut(difficulty, true);
                     cards_to_test_length = cards_to_test.len();
-                    if cards_to_test_length <= 5 {
-                        changes = Tester::test_cards(&mut cards_to_test[0..cards_to_test_length]);
-                    }
-                    else {
-                        changes = Tester::test_cards(&mut cards_to_test[0..5]);
+
+                    if cards_to_test_length != 0 {
+                        cards_present = true;
+                        if cards_to_test_length <= 7 {
+                            changes = Tester::test_cards(&mut cards_to_test[0..cards_to_test_length]);
+                        }
+                        else {
+                            changes = Tester::test_cards(&mut cards_to_test[0..7]);
+                        }
+
+                        Tester::change_difficulty(deck, difficulty, changes);
                     }
 
-                    Tester::change_difficulty(deck, difficulty, changes);
-
+                    if cards_present == false {
+                        println!("No cards are available for the given test in this deck.")
+                    }
                 }
             }
         }
 
         else { 
-                Tester::test_cards(&mut deck.get_inner_mut(difficulty));
-            }        
+            difficulty.change(false);
+            self.test_cards(&mut deck.get_inner_mut(difficulty, true));
+            difficulty.change(true);
+            self.test_cards(&mut deck.get_inner_mut(difficulty, true));
+            difficulty.change(true);
+            self.test_cards(&mut deck.get_inner_mut(difficulty, true));
+        }        
 
     }
 
-    fn test_cards(cards: &mut [Card]) -> Vec<bool> {
+    fn test_cards(&mut self, cards: &mut [Card]) -> Vec<bool> {
         let mut response = String::new();
         let mut card_changes = Vec::new();
 
         for card in cards {
-            print!("Card Front: {}", card.get_front());
+            print!("Card Front: {} ", card.get_front());
             io::stdout().flush().expect("Unexpected error on pushing output");
             io::stdin().read_line(&mut response).expect("Failed to read line");
 
@@ -268,7 +299,7 @@ impl Tester {
         let mut easier_cards = Vec::new();
         let mut harder_cards = Vec::new();
 
-        for (card, change) in deck.get_inner_mut(current_dicciculty).drain(0..changes.len()).zip(changes) {
+        for (card, change) in deck.get_inner_mut(current_dicciculty, false).drain(0..changes.len()).zip(changes) {
             if change == true {
                 harder_cards.push(card)
             }
@@ -278,11 +309,11 @@ impl Tester {
         }
 
         current_dicciculty.change(true);
-        deck.get_inner_mut(current_dicciculty).append(&mut harder_cards);
+        deck.get_inner_mut(current_dicciculty, false).append(&mut harder_cards);
 
         current_dicciculty.change(false);
         current_dicciculty.change(false);
-        deck.get_inner_mut(current_dicciculty).append(&mut easier_cards);
+        deck.get_inner_mut(current_dicciculty, false).append(&mut easier_cards);
     }
 
     pub fn save_progress(&self){
